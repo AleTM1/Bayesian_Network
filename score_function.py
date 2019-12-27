@@ -6,7 +6,7 @@ import numpy as np
 def score_function(bayesian_network, domini, dataset):
     n = bayesian_network.get_n()
     r = domini
-    q = np.ones(n)
+    q = np.ones(n)   # produttoria dei domini dei genitori della variabile i-esima
     parents = []
     for i in range(n):
         p = 1
@@ -35,8 +35,28 @@ def score_function(bayesian_network, domini, dataset):
                 act_q = act_q / (r[(parents[i])[col]])
             ij_array.append(ij_actual)
 
-    print(ij_array[3], "\n")
+    Nij_array = []
+    Nijk_array = []
+    for i in range(n):
+        act_Nij = []
+        for j in range(int(q[i])):
+            count_ij = 0
+            act_Nijk = np.zeros(r[i])
+            for d in range(np.size(dataset, 0)):
+                match = True
+                for m in range(len(parents[i])):
+                    if (dataset[d])[parents[i][m]] != ij_array[i][j][m]:
+                        match = False
+                        break
+                if match:
+                    count_ij += 1
+                    act_Nijk[int(dataset[d][i])] += 1
+            act_Nij.append(count_ij)
+            Nijk_array.append(act_Nijk)
+        Nij_array.append(act_Nij)
 
+    print(Nij_array)
+    print(Nijk_array)
 
 def main():
     bn = BN.BayesianNetwork(4)
