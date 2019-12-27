@@ -21,6 +21,7 @@ class BayesianNetwork:
 
 
 def main():
+    """"
     bn = BayesianNetwork(4)
     mat = np.zeros((4, 4))
     mat[0, 1] = 1
@@ -28,6 +29,7 @@ def main():
     mat[0, 3] = 1
     mat[1, 3] = 1
     bn.set_matrix(mat)
+    """
 
 
 if __name__ == '__main__':
