@@ -3,7 +3,8 @@ import numpy as np
 
 """"
 Partendo dal file csv del dataset e da un file csv che specifica le modalità che possono essere assunte da ogni stato,
-la funzione restituisce un numpy array 2D con i valori numerici per ogni tupla del dataset
+la funzione restituisce un numpy array 2D con i valori numerici per ogni tupla del dataset.
+La funzione restituisce anche un array di dimensione N con la dimensione del dominio delle N variabili
 """
 
 
@@ -36,9 +37,25 @@ def csv_to_numpy(table_path, dataset_path):
 
     dataset = np.array(dataset_array)
     print(dataset)
+    # creazione array delle modalità
+    dominio = []
+    i = 0
+    for j in range(1, num_states + 1, 1):
+        i += 1
+        if j < num_states:
+            k = 0
+            while table_array[i] != states[j]:
+                i += 1
+                k += 1
+            dominio.append(k)
+        else:
+            dominio.append(len(table_array) - i)
+
+    print(dominio)
+
     raw_data.close()
 
-    return dataset
+    return dominio, dataset
 
 
 def main():
