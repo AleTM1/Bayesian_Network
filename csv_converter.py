@@ -36,7 +36,6 @@ def csv_to_numpy(table_path, dataset_path):
         line += 1
 
     dataset = np.array(dataset_array)
-    print(dataset)
     # creazione array delle modalità
     dominio = []
     i = 0
@@ -51,15 +50,15 @@ def csv_to_numpy(table_path, dataset_path):
         else:
             dominio.append(len(table_array) - i)
 
-    print(dominio)
-
     raw_data.close()
 
     return dominio, dataset
 
 
 def main():
-    csv_to_numpy('/home/alessandro/Documenti/IA/Datasets/Alarm/variable_value.csv', '/home/alessandro/Documenti/IA/Datasets/Alarm/ALARM10k.csv')
+    data = csv_to_numpy('/home/alessandro/Documenti/IA/Datasets/Alarm/variable_value.csv', '/home/alessandro/Documenti/IA/Datasets/Alarm/ALARM10k.csv')
+    print(data[0])
+    print(data[1])
 
 
 if __name__ == '__main__':

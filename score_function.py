@@ -59,14 +59,13 @@ def score_function(bayesian_network, domini, dataset):
 
     #   funzione di calcolo
 
-    produttoria = 1
+    sommatoria = 0
     for i in range(n):
         for j in range(int(q[i])):
-            produttoria *= (math.gamma(1))/(math.gamma(1 + Nij_array[i][j]))
             for k in range(r[i]):
-                produttoria *= (math.gamma(1 + Nijk_array[i][j][k]))/(math.gamma(1))
+                sommatoria += math.log2((math.gamma(1))/(math.gamma(1 + Nij_array[i][j])) * (math.gamma(1 + Nijk_array[i][j][k]))/(math.gamma(1)))
 
-    return produttoria
+    return sommatoria
 
 
 def main():
