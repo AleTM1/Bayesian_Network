@@ -39,6 +39,7 @@ def score_function(bayesian_network, domini, dataset):
     Nijk_array = []
     for i in range(n):
         act_Nij = []
+        act_Nijk_array = []
         for j in range(int(q[i])):
             count_ij = 0
             act_Nijk = np.zeros(r[i])
@@ -52,11 +53,21 @@ def score_function(bayesian_network, domini, dataset):
                     count_ij += 1
                     act_Nijk[int(dataset[d][i])] += 1
             act_Nij.append(count_ij)
-            Nijk_array.append(act_Nijk)
+            act_Nijk_array.append(act_Nijk)
+        Nijk_array.append(act_Nijk_array)
         Nij_array.append(act_Nij)
 
-    print(Nij_array)
-    print(Nijk_array)
+    #   funzione di calcolo
+
+    produttoria = 1
+    for i in range(n):
+        for j in range(int(q[i])):
+            produttoria *= (math.gamma(1))/(math.gamma(1 + Nij_array[i][j]))
+            for k in range(r[i]):
+                produttoria *= (math.gamma(1 + Nijk_array[i][j][k]))/(math.gamma(1))
+
+    return produttoria
+
 
 def main():
     bn = BN.BayesianNetwork(4)
@@ -81,7 +92,8 @@ def main():
     data[4, 2] = 1
     data[4, 3] = 2
 
-    score_function(bn, domini, data)
+    new_score = score_function(bn, domini, data)
+    print(new_score)
 
 
 if __name__ == '__main__':
