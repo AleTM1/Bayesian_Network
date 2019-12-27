@@ -7,14 +7,35 @@ def score_function(bayesian_network, domini, dataset):
     n = bayesian_network.get_n()
     r = domini
     q = np.ones(n)
+    parents = []
     for i in range(n):
         p = 1
-        parents = bayesian_network.get_parents(i)
-        if len(parents) > 0:
-            for j in range(len(parents)):
-                p = p * r[parents[j]]
+        pp = bayesian_network.get_parents(i)
+        if len(pp) > 0:
+            parents.append(pp)
+            for j in range(len(pp)):
+                p = p * r[pp[j]]
+        else:
+            parents.append([])
         q[i] = p
-    print(q)
+
+    ij_array = []
+    for i in range(n):
+        if len(parents[i]) == 0:
+            ij_actual = np.zeros((1, 1))
+            ij_actual[0, 0] = -1
+            ij_array.append(ij_actual)
+        else:
+            ij_actual = np.zeros((int(q[i]), len(parents[i])))
+            act_q = q[i]
+            for col in range(len(parents[i])):
+                for row in range(int(q[i])):
+                    ij_actual[row, col] = ((row - (row % (int(act_q) / (r[(parents[i])[col]])))) * r[(parents[i])[col]]) / (int(act_q))
+                    ij_actual[row, col] = ij_actual[row, col] % (r[(parents[i])[col]])
+                act_q = act_q / (r[(parents[i])[col]])
+            ij_array.append(ij_actual)
+
+    print(ij_array[3], "\n")
 
 
 def main():
