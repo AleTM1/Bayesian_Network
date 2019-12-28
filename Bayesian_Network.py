@@ -5,6 +5,8 @@ class BayesianNetwork:
     def __init__(self, N):
         self.N = N
         self.matrix = np.zeros((N, N))
+        for i in range(1, N, 1):
+            self.matrix[0, i] = 1
 
     def set_matrix(self, new_matrix):
         self.matrix = new_matrix

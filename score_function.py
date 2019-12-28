@@ -1,4 +1,3 @@
-import math
 import Bayesian_Network as BN
 import numpy as np
 
@@ -59,13 +58,15 @@ def score_function(bayesian_network, domini, dataset):
 
     #   funzione di calcolo
 
-    sommatoria = 0
+    d = sum((int(q[i]) * (r[i] - 1)) for i in range(n))
+    p = []
     for i in range(n):
         for j in range(int(q[i])):
             for k in range(r[i]):
-                sommatoria += math.log2((math.gamma(1))/(math.gamma(1 + Nij_array[i][j])) * (math.gamma(1 + Nijk_array[i][j][k]))/(math.gamma(1)))
+                p.append((1 + Nijk_array[i][j][k])/(1 + Nij_array[i][j]))
 
-    return sommatoria
+    print(d)
+    return len(p)
 
 
 def main():
