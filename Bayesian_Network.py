@@ -6,8 +6,10 @@ class BayesianNetwork:
         self.N = N
         self.matrix = np.zeros((N, N))
         """""
-        for i in range(1, N, 1):
-            self.matrix[0, i] = 1
+        for i in range(0, N, 1):
+            self.matrix[1, i] = 1
+        self.matrix[1, 1] = 0
+    
         self.matrix[1, 2] = 1
         self.matrix[23, 24] = 1
         """""

@@ -13,6 +13,7 @@ def main():
     """
     domini = [2, 3, 2, 4]
     data = np.zeros((5, 4))
+    #data[0, 2] = 1  #
     data[1, 0] = 1
     data[1, 1] = 2
     data[1, 2] = 1
@@ -20,13 +21,16 @@ def main():
     data[2, 0] = 1
     data[2, 1] = 1
     data[2, 3] = 1
+    #data[3, 1] = 2   #
     data[4, 0] = 1
     data[4, 1] = 1
     data[4, 2] = 1
     data[4, 3] = 2
     best_structure = hill_climbing.BIC_hill_climbing(domini, data)
 
+    print("FINITO")
     print(best_structure.get_matrix())
+
 
 
 if __name__ == '__main__':

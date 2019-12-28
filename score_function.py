@@ -67,7 +67,7 @@ def score_function(bayesian_network, domini, dataset):
                 sommatoria += (Nijk_array[i][j][k] + 1) * math.log2((Nijk_array[i][j][k] + 1) / (Nij_array[i][j] + 1))
 
     score = sommatoria - (d / 2) * math.log2(np.size(dataset, 0))
-    print(score)
+    #print(score)
     return score
 
 
