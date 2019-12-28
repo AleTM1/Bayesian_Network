@@ -5,9 +5,9 @@ class BayesianNetwork:
     def __init__(self, N):
         self.N = N
         self.matrix = np.zeros((N, N))
+        """""
         for i in range(1, N, 1):
             self.matrix[0, i] = 1
-        """""
         self.matrix[1, 2] = 1
         self.matrix[23, 24] = 1
         """""
