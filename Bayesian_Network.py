@@ -1,4 +1,6 @@
 import numpy as np
+import math
+import random
 
 
 class BayesianNetwork:
@@ -6,6 +8,7 @@ class BayesianNetwork:
         self.max_parents = 3
         self.N = N
         self.matrix = np.zeros((N, N))
+        self.generate_DAG()
         """""
         for i in range(0, N, 1):
             self.matrix[1, i] = 1
@@ -14,6 +17,14 @@ class BayesianNetwork:
         self.matrix[1, 2] = 1
         self.matrix[23, 24] = 1
         """""
+
+    def generate_DAG(self):
+        n = int(math.floor(((self.N - 1) * self.N))/4)
+        k = 0
+        while k < n:
+            link = [random.randint(0, self.N - 1), random.randint(0, self.N - 1)]
+            if self.matrix[link[0], link[1]] == 0 and link[0] != link[1] and self.add_link(link):
+                k += 1
 
     def set_matrix(self, new_matrix):
         self.matrix = new_matrix
@@ -72,22 +83,8 @@ def search_path_bfs(v, u, bn):
 
 
 def main():
-    """""
-    bn = BayesianNetwork(4)
-    mat = np.zeros((4, 4))
-    mat[0, 1] = 1
-    mat[0, 2] = 1
-    mat[0, 3] = 1
-    mat[1, 3] = 1
-    bn.set_matrix(mat)
-    print(mat)
-    if bn.change_link([0, 1]):
-        print("Cambiato")
-        print(bn.get_matrix())
-    else:
-        print("Rimasto")
-        print(bn.get_matrix())
-    """
+    bn = BayesianNetwork(10)
+    print(bn.get_matrix())
 
 
 if __name__ == '__main__':
