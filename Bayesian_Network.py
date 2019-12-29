@@ -3,6 +3,7 @@ import numpy as np
 
 class BayesianNetwork:
     def __init__(self, N):
+        self.max_parents = 3
         self.N = N
         self.matrix = np.zeros((N, N))
         """""
@@ -38,7 +39,7 @@ class BayesianNetwork:
         return children
 
     def add_link(self, link):
-        if search_path_bfs(link[1], link[0], self):
+        if len(self.get_parents(link[1])) >= self.max_parents or search_path_bfs(link[1], link[0], self):
             return False
         self.matrix[link[0], link[1]] = 1
         return True
@@ -48,7 +49,7 @@ class BayesianNetwork:
 
     def change_link(self, link):
         self.matrix[link[0], link[1]] = 0
-        if search_path_bfs(link[0], link[1], self):
+        if len(self.get_parents(link[0])) >= self.max_parents or search_path_bfs(link[0], link[1], self):
             self.matrix[link[0], link[1]] = 1
             return False
         self.matrix[link[1], link[0]] = 1
