@@ -5,21 +5,22 @@ import random
 
 class BayesianNetwork:
     def __init__(self, N):
-        self.max_parents = 3
+        self.max_parents = 2
         self.N = N
         self.matrix = np.zeros((N, N))
-        self.generate_DAG()
         """""
-        for i in range(0, N, 1):
-            self.matrix[1, i] = 1
-        self.matrix[1, 1] = 0
-    
-        self.matrix[1, 2] = 1
-        self.matrix[23, 24] = 1
-        """""
+        self.matrix[0, 1] = 1
+        self.matrix[1, 5] = 1
+        self.matrix[2, 3] = 1
+        self.matrix[2, 4] = 1
+        self.matrix[3, 5] = 1
+        self.matrix[4, 7] = 1
+        self.matrix[5, 6] = 1
+        self.matrix[5, 7] = 1
+        """
 
     def generate_DAG(self):
-        n = int(math.floor(((self.N - 1) * self.N))/4)
+        n = int(self.N)
         k = 0
         while k < n:
             link = [random.randint(0, self.N - 1), random.randint(0, self.N - 1)]
