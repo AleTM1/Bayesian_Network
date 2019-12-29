@@ -37,9 +37,9 @@ def BIC_hill_climbing(dominio, dataset):
                         elif score3 < score2 and score3 < score:
                             bn = bn3
                             score = score3
-                    print(bn.get_matrix())
-                    print(score)
-            print(i)
+            print(bn.get_matrix())
+            print(score)
+            print(" ------------ ", i, " ------------ ")
         #print(bn.get_matrix())
         if max_score <= score:
             break
