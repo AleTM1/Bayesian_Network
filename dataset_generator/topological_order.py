@@ -33,11 +33,13 @@ def has_parents(structure_matrix, n, node_number):
 # Kahn's algorithm
 def topological_ord(structure_matrix):
     n = np.size(structure_matrix, 0)
-    explored = []
+    explored = np.zeros(n)
     act_set = starter_set(structure_matrix, n)
+    k = 0
     while len(act_set) != 0:
         node = act_set.pop()
-        explored.append(node)
+        explored[k] = node
+        k += 1
         for m in get_children(structure_matrix, n, node):
             structure_matrix[node, m] = 0
             if not has_parents(structure_matrix, n, m):

@@ -32,7 +32,11 @@ def csv_to_numpy(states_path, prob_table_path, structure_path):
     prob_reader = csv.reader(prob_file, delimiter=',')
     next(prob_reader)
     for i in range(num_states):
-        probabilities.append(next(prob_reader))
+        row = next(prob_reader)
+        r_prob = np.zeros(len(row))
+        for j in range(len(row)):
+            r_prob[j] = row[j]
+        probabilities.append(r_prob)
 
     prob_file.close()
 
