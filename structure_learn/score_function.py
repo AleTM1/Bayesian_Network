@@ -1,5 +1,5 @@
 import math
-import Bayesian_Network as BN
+from miscellaneous import Bayesian_Network as BN
 import numpy as np
 
 

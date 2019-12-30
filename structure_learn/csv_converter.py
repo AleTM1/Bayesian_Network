@@ -14,7 +14,7 @@ def csv_to_numpy(table_path, dataset_path):
 
     table = open(table_path, 'r')
     table_reader = csv.reader(table, delimiter=',')
-    table_array = next(table_reader)
+    table_title = next(table_reader)
     table.close()
 
     raw_data = open(dataset_path, 'rt')
@@ -27,8 +27,8 @@ def csv_to_numpy(table_path, dataset_path):
         data_row = []
         for i in range(0, num_states, 1):
             k = 0
-            table_index = table_array.index(states[i]) + 1
-            while table_array[table_index] != row[i]:
+            table_index = table_title.index(states[i]) + 1
+            while table_title[table_index] != row[i]:
                 table_index += 1
                 k += 1
             data_row.append(k)
@@ -43,12 +43,12 @@ def csv_to_numpy(table_path, dataset_path):
         i += 1
         if j < num_states:
             k = 0
-            while table_array[i] != states[j]:
+            while table_title[i] != states[j]:
                 i += 1
                 k += 1
             dominio.append(k)
         else:
-            dominio.append(len(table_array) - i)
+            dominio.append(len(table_title) - i)
 
     raw_data.close()
 

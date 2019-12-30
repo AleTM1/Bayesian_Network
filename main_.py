@@ -1,6 +1,4 @@
-import csv_converter
-import hill_climbing
-import numpy as np
+from structure_learn import csv_converter, hill_climbing
 
 
 def main():

@@ -1,5 +1,5 @@
-import score_function as score_f
-import Bayesian_Network as BN
+from structure_learn import score_function as score_f
+from miscellaneous import Bayesian_Network as BN
 import numpy as np
 import copy
 
