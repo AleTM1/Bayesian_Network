@@ -1,10 +1,10 @@
 import numpy as np
-import math
 import random
 
 
 class BayesianNetwork:
     def __init__(self, N):
+        random.seed()
         self.max_parents = 2
         self.N = N
         self.matrix = np.zeros((N, N))
