@@ -74,9 +74,9 @@ def score_function(bayesian_network, domini, dataset):
 def main():
     bn = BN.BayesianNetwork(8)
     matrix = np.zeros((8, 8))
-    matrix[0, 1] = 1
+    matrix[0, 1] = 0  # mod [0,1] = 1
     matrix[1, 5] = 1
-    matrix[2, 3] = 1
+    matrix[3, 2] = 1  # mod [2,3] = 1
     matrix[2, 4] = 1
     matrix[3, 5] = 1
     matrix[4, 7] = 1

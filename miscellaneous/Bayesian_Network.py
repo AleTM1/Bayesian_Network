@@ -5,32 +5,12 @@ import random
 class BayesianNetwork:
     def __init__(self, N):
         random.seed()
-        self.max_parents = 2
+        self.max_parents = 3
+        self.max_children = 3
         self.N = N
         self.matrix = np.zeros((N, N))
-        """""
-        self.matrix[0, 1] = 1
-        self.matrix[1, 5] = 1
-        self.matrix[2, 3] = 1
-        self.matrix[2, 4] = 1
-        self.matrix[3, 5] = 1
-        self.matrix[4, 7] = 1
-        self.matrix[5, 6] = 1
-        self.matrix[5, 7] = 1
-        """
 
     def generate_DAG(self):
-        """""
-        self.matrix = np.zeros((8, 8))
-        self.matrix[0, 1] = 1
-        self.matrix[1, 5] = 1
-        self.matrix[2, 3] = 1
-        self.matrix[2, 4] = 1
-        self.matrix[3, 5] = 1
-        self.matrix[4, 7] = 1
-        self.matrix[5, 6] = 1
-        self.matrix[5, 7] = 1
-        """
         n = int(self.N)
         k = 0
         while k < n:
@@ -62,7 +42,7 @@ class BayesianNetwork:
         return children
 
     def add_link(self, link):
-        if len(self.get_parents(link[1])) >= self.max_parents or search_path_bfs(link[1], link[0], self):
+        if len(self.get_parents(link[1])) >= self.max_parents or len(self.get_children(link[0])) >= self.max_children or search_path_bfs(link[1], link[0], self):
             return False
         self.matrix[link[0], link[1]] = 1
         return True
@@ -72,7 +52,7 @@ class BayesianNetwork:
 
     def change_link(self, link):
         self.matrix[link[0], link[1]] = 0
-        if len(self.get_parents(link[0])) >= self.max_parents or search_path_bfs(link[0], link[1], self):
+        if len(self.get_parents(link[0])) >= self.max_parents or len(self.get_children(link[1])) >= self.max_children or search_path_bfs(link[0], link[1], self):
             self.matrix[link[0], link[1]] = 1
             return False
         self.matrix[link[1], link[0]] = 1
