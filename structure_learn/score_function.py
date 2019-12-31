@@ -90,11 +90,13 @@ def main():
     prob_table_path = '/home/alessandro/Documenti/IA/Datasets/Asia/prob.csv'
     structure_path = '/home/alessandro/Documenti/IA/Datasets/Asia/structure.csv'
     data = generator.importer.csv_to_numpy(states_path, prob_table_path, structure_path)
-    dataset = generator.dataset_gen(data[0], data[1], data[2], 5000)
+    dataset = generator.dataset_gen(data[0], data[1], data[2], 20000)
     print("Dataset generato")
 
     new_score = score_function(bn, domini, dataset)
+    print(bn.get_matrix())
     print(new_score)
+    print("+++")
 
 
 if __name__ == '__main__':

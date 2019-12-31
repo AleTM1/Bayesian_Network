@@ -20,13 +20,23 @@ class BayesianNetwork:
         """
 
     def generate_DAG(self):
+        """""
+        self.matrix = np.zeros((8, 8))
+        self.matrix[0, 1] = 1
+        self.matrix[1, 5] = 1
+        self.matrix[2, 3] = 1
+        self.matrix[2, 4] = 1
+        self.matrix[3, 5] = 1
+        self.matrix[4, 7] = 1
+        self.matrix[5, 6] = 1
+        self.matrix[5, 7] = 1
+        """
         n = int(self.N)
         k = 0
         while k < n:
             link = [random.randint(0, self.N - 1), random.randint(0, self.N - 1)]
             if self.matrix[link[0], link[1]] == 0 and link[0] != link[1] and self.add_link(link):
                 k += 1
-        print(self.matrix)
 
     def set_matrix(self, new_matrix):
         self.matrix = new_matrix

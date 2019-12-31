@@ -43,7 +43,6 @@ def BIC_hill_climbing(dominio, dataset):
                                 best_action_bn = bn3
                                 best_action_score = score3
             #   aggiorno se ho un miglioramento e mi fermo se non esiste un'azione che incrementa lo score
-            print(" ... ")
             if best_action_score > temp_score:
                 temp_score = best_action_score
                 temp_bn = best_action_bn
