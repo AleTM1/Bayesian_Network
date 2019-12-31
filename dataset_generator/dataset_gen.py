@@ -15,6 +15,7 @@ def get_parents(structure_matrix, n, node_number):
 
 
 def dataset_gen(dominio, structure_matrix, probabilities, n):
+    random.seed()
     ordered_array = top_ord.topological_ord(copy.deepcopy(structure_matrix))
     dataset = np.zeros((n, len(dominio)))
     for i in range(n):
@@ -34,8 +35,7 @@ def dataset_gen(dominio, structure_matrix, probabilities, n):
                     dataset[i, int(ordered_array[j])] = 1
                 else:
                     dataset[i, int(ordered_array[j])] = 0
-
-    print(dataset)
+    return dataset
 
 
 def main():
@@ -43,8 +43,8 @@ def main():
     prob_table_path = '/home/alessandro/Documenti/IA/Datasets/Asia/prob.csv'
     structure_path = '/home/alessandro/Documenti/IA/Datasets/Asia/structure.csv'
     data = importer.csv_to_numpy(states_path, prob_table_path, structure_path)
-    dataset_gen(data[0], data[1], data[2], 100)
-
+    dataset = dataset_gen(data[0], data[1], data[2], 100)
+    print(dataset)
 
 if __name__ == '__main__':
     main()

@@ -14,7 +14,7 @@ def csv_to_numpy(states_path, prob_table_path, structure_path):
     #   creazione array domini
     dominio = []
     for i in range(1, len(states_array), 2):
-        dominio.append(states_array[i])
+        dominio.append(int(states_array[i]))
 
     #   matrice di incidenza
     structure_file = open(structure_path, 'r')

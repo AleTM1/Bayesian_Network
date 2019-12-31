@@ -1,5 +1,6 @@
 import math
 from miscellaneous import Bayesian_Network as BN
+from dataset_generator import dataset_gen as generator
 import numpy as np
 
 
@@ -66,34 +67,33 @@ def score_function(bayesian_network, domini, dataset):
             for k in range(r[i]):
                 sommatoria += (Nijk_array[i][j][k] + 1) * math.log2((Nijk_array[i][j][k] + 1) / (Nij_array[i][j] + 1))
 
-    score = - sommatoria + (d / 2) * math.log2(np.size(dataset, 0))
+    score = sommatoria - (d / 2) * math.log2(np.size(dataset, 0))
     return score
 
 
 def main():
-    bn = BN.BayesianNetwork(4)
-    mat = np.zeros((4, 4))
-    mat[0, 1] = 1
-    mat[0, 2] = 1
-    mat[0, 3] = 1
-    mat[1, 3] = 1
-    bn.set_matrix(mat)
+    bn = BN.BayesianNetwork(8)
+    matrix = np.zeros((8, 8))
+    matrix[0, 1] = 1
+    matrix[1, 5] = 1
+    matrix[2, 3] = 1
+    matrix[2, 4] = 1
+    matrix[3, 5] = 1
+    matrix[4, 7] = 1
+    matrix[5, 6] = 1
+    matrix[5, 7] = 1
+    bn.set_matrix(matrix)
 
-    domini = [2, 3, 2, 4]
-    data = np.zeros((5, 4))
-    data[1, 0] = 1
-    data[1, 1] = 2
-    data[1, 2] = 1
-    data[1, 3] = 3
-    data[2, 0] = 1
-    data[2, 1] = 1
-    data[2, 3] = 1
-    data[4, 0] = 1
-    data[4, 1] = 1
-    data[4, 2] = 1
-    data[4, 3] = 2
+    domini = [2, 2, 2, 2, 2, 2, 2, 2]
 
-    new_score = score_function(bn, domini, data)
+    states_path = '/home/alessandro/Documenti/IA/Datasets/Asia/states.csv'
+    prob_table_path = '/home/alessandro/Documenti/IA/Datasets/Asia/prob.csv'
+    structure_path = '/home/alessandro/Documenti/IA/Datasets/Asia/structure.csv'
+    data = generator.importer.csv_to_numpy(states_path, prob_table_path, structure_path)
+    dataset = generator.dataset_gen(data[0], data[1], data[2], 5000)
+    print("Dataset generato")
+
+    new_score = score_function(bn, domini, dataset)
     print(new_score)
 
 

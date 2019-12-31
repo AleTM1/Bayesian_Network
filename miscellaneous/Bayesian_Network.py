@@ -26,6 +26,7 @@ class BayesianNetwork:
             link = [random.randint(0, self.N - 1), random.randint(0, self.N - 1)]
             if self.matrix[link[0], link[1]] == 0 and link[0] != link[1] and self.add_link(link):
                 k += 1
+        print(self.matrix)
 
     def set_matrix(self, new_matrix):
         self.matrix = new_matrix
