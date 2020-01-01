@@ -7,7 +7,7 @@ def main():
     prob_table_path = '/home/alessandro/Documenti/IA/Datasets/Asia/prob.csv'
     structure_path = '/home/alessandro/Documenti/IA/Datasets/Asia/structure.csv'
     data = generator.importer.csv_to_numpy(states_path, prob_table_path, structure_path)
-    n = 10000
+    n = 5000
     dataset = generator.dataset_gen(data[0], data[1], data[2], n)
     print("Dataset generato")
     result = hill_climbing.BIC_hill_climbing(data[0], dataset)
