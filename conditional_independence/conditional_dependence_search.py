@@ -1,4 +1,5 @@
 import numpy as np
+import networkx as nx
 from miscellaneous import Bayesian_Network as BN
 
 
@@ -18,23 +19,9 @@ def get_children(matrix, n, node_number):
     return children
 
 
-def search_path_bfs(v, u, matrix, n):
-    visited = [False] * n
-    queue = [v]
-    visited[v] = True
-    path = [v]    ###################
-    while len(queue) > 0:
-        node = queue.pop(0)
-        if node == u:
-            path.append(u)  ###################
-            print(path) ###################
-            return True
-        for i in get_children(matrix, n, node):
-            if not visited[i]:
-                path.append(i)  ###################
-                queue.append(i)
-                visited[i] = True
-    return False
+def path_finder_undirect_graph(src, dst, matrix):
+    nx_graph = nx.from_numpy_matrix(matrix)
+    return list(nx.all_simple_paths(nx_graph, source=src, target=dst))
 
 
 def search_conditional_dependence(direct_matrix):
@@ -55,17 +42,54 @@ def search_conditional_dependence(direct_matrix):
                 undirect_matrix[i, j] = 1
                 undirect_matrix[j, i] = 1
 
-    #   creo la matrice delle dipendenze
-    dependencies = []
+    paths = []
     for link in couples:
-        if not search_path_bfs(link[0], link[1], undirect_matrix, n):
-            dependencies.append([])
-        else:
-            # TODO
-            dependencies.append([-1, -1])
+        paths.append(path_finder_undirect_graph(link[0], link[1], undirect_matrix))
 
-    print(couples)
-    print(dependencies)
+    #   creo la matrice delle dipendenze
+    dependencies_arrays = []
+    for p in paths:
+        dep = []
+        # cerco i nodi da cui p_src e p_dst dipendono condizionalmente dove p è uno dei cammini da paths_src e path_dst
+        if len(p) > 0:
+            for k in range(len(p)):
+                dk = []
+                pp = p[k]
+                for node in range(1, len(pp) - 1, 1):
+                    l1 = direct_matrix[pp[node - 1], pp[node]]
+                    l2 = direct_matrix[pp[node], pp[node + 1]]
+                    if (l1 == 1 and l2 == 1) or (l1 == 0 and l2 == 0) or (l1 == 0 and l2 == 1):
+                        dk.append(pp[node])
+                if len(dk) > 0:
+                    dep.append(dk)
+            dependencies_arrays.append(dep)
+        else:
+            dependencies_arrays.append([])
+
+    #   cerco i nodi che inattivano tutti i sub_path
+    intersection = []
+    for dep in dependencies_arrays:
+        if len(dep) == 0:
+            intersection.append([])
+        elif len(dep) == 1:
+            intersection.append(dep[0])
+        else:
+            d = dep[0]
+            for i in range(1, len(dep)):
+                d = [value for value in d if value in dep[i]]
+            intersection.append(d)
+
+    for i in range(len(couples)):
+        dependence = dependencies_arrays[i]
+        if len(dependence) == 0:
+            print("Il nodo ", couples[i][0], " ed il nodo ", couples[i][1], "sono marginalmente indipendenti")
+        elif len(dependence) == 1:
+            print("Il nodo ", couples[i][0], " ed il nodo ", couples[i][1], "sono condizionalmente indipendenti dato uno dei seguenti nodi: ", *dependence[0])
+        else:
+            if len(intersection[i]) > 0:
+                print("Il nodo ", couples[i][0], " ed il nodo ", couples[i][1], "sono condizionalmente indipendenti dati i nodi: ", intersection[i][0])
+            else:
+                print("Il nodo ", couples[i][0], " ed il nodo ", couples[i][1], "sono condizionalmente indipendenti dati un nodo per ognuno dei seguenti gruppi: ", *dependence)
 
 
 def main():
