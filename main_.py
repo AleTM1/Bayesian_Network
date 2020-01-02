@@ -1,12 +1,12 @@
 from structure_learn import hill_climbing
-from dataset_generator import dataset_gen as generator
+from dataset_generator import dataset_gen as generator, csv_to_numpy
 
 
 def main():
     states_path = '/home/alessandro/Documenti/IA/Datasets/Asia/states.csv'
     prob_table_path = '/home/alessandro/Documenti/IA/Datasets/Asia/prob.csv'
     structure_path = '/home/alessandro/Documenti/IA/Datasets/Asia/structure.csv'
-    data = generator.importer.csv_to_numpy(states_path, prob_table_path, structure_path)
+    data = csv_to_numpy.csv_to_numpy(states_path, prob_table_path, structure_path)
     n = 5000
     dataset = generator.dataset_gen(data[0], data[1], data[2], n)
     print("Dataset generato")
