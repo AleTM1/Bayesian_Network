@@ -7,12 +7,12 @@ import copy
 def BIC_hill_climbing(dominio, dataset):
     n = np.size(dominio, 0)
     bn_best = BN.BayesianNetwork(n)
-    best_score = score_f.score_function(bn_best, dominio, dataset)
+    best_score = score_f.score_function(bn_best, dataset)
     for temp in range(4):
         print("Restart: ", temp + 1)
         temp_bn = BN.BayesianNetwork(n)
         temp_bn.generate_DAG()
-        temp_score = score_f.score_function(temp_bn, dominio, dataset)
+        temp_score = score_f.score_function(temp_bn, dataset)
         best_action_score = temp_score
         best_action_bn = temp_bn
         while True:
@@ -26,16 +26,16 @@ def BIC_hill_climbing(dominio, dataset):
                         score2 = -10000000000
                         score3 = -10000000000
                         if temp_bn.get_matrix()[i][j] == 0 and bn1.add_link([i, j]):
-                            score1 = score_f.score_function(bn1, dominio, dataset)
+                            score1 = score_f.score_function(bn1, dataset)
                             if score1 > best_action_score:
                                 best_action_score = score1
                                 best_action_bn = bn1
                         else:
                             if temp_bn.get_matrix()[i][j] == 1:
                                 bn2.remove_link([i, j])
-                                score2 = score_f.score_function(bn2, dominio, dataset)
+                                score2 = score_f.score_function(bn2, dataset)
                             if temp_bn.get_matrix()[i][j] == 1 and bn3.change_link([i, j]):
-                                score3 = score_f.score_function(bn3, dominio, dataset)
+                                score3 = score_f.score_function(bn3, dataset)
                             if score2 > score3 and score2 > best_action_score:
                                 best_action_bn = bn2
                                 best_action_score = score2

@@ -1,12 +1,11 @@
 import math
 from miscellaneous import Bayesian_Network as BN
-from dataset_generator import dataset_gen as generator
 import numpy as np
 
 
-def score_function(bayesian_network, domini, dataset):
+def score_function(bayesian_network, dataset):
     n = bayesian_network.get_n()
-    r = domini
+    r = [2] * n
     q = np.ones(n)   # produttoria dei domini dei genitori della variabile i-esima
     parents = []
     for i in range(n):
@@ -15,7 +14,7 @@ def score_function(bayesian_network, domini, dataset):
         if len(pp) > 0:
             parents.append(pp)
             for j in range(len(pp)):
-                p = p * r[pp[j]]
+                p = p * r[pp[j]]    # in questo caso r[pp[j]] = 2 per ogni valore di j
         else:
             parents.append([])
         q[i] = p
@@ -28,13 +27,11 @@ def score_function(bayesian_network, domini, dataset):
             ij_array.append(ij_actual)
         else:
             ij_actual = np.zeros((int(q[i]), len(parents[i])))
-            act_q = q[i]
             for col in range(len(parents[i])):
                 for row in range(int(q[i])):
-                    ij_actual[row, col] = ((row - (row % (int(act_q) / (r[(parents[i])[col]])))) * r[(parents[i])[col]]) / (int(act_q))
-                    ij_actual[row, col] = ij_actual[row, col] % (r[(parents[i])[col]])
-                act_q = act_q / (r[(parents[i])[col]])
+                    ij_actual[row, col] = ((row - (row % (q[i] / (2 ** (col + 1))))) * 2) / (q[i] / (2 ** col)) % 2
             ij_array.append(ij_actual)
+
 
     Nij_array = []
     Nijk_array = []
@@ -74,7 +71,7 @@ def score_function(bayesian_network, domini, dataset):
 def main():
     bn = BN.BayesianNetwork(8)
     matrix = np.zeros((8, 8))
-    matrix[0, 1] = 0  # mod [0,1] = 1
+    matrix[0, 7] = 1  # mod [0,1] = 1
     matrix[1, 5] = 1
     matrix[3, 2] = 1  # mod [2,3] = 1
     matrix[2, 4] = 1
@@ -84,19 +81,9 @@ def main():
     matrix[5, 7] = 1
     bn.set_matrix(matrix)
 
-    domini = [2, 2, 2, 2, 2, 2, 2, 2]
+    dataset = 0
 
-    states_path = '/home/alessandro/Documenti/IA/Datasets/Asia/states.csv'
-    prob_table_path = '/home/alessandro/Documenti/IA/Datasets/Asia/prob.csv'
-    structure_path = '/home/alessandro/Documenti/IA/Datasets/Asia/structure.csv'
-    data = generator.importer.csv_to_numpy(states_path, prob_table_path, structure_path)
-    dataset = generator.dataset_gen(data[0], data[1], data[2], 20000)
-    print("Dataset generato")
-
-    new_score = score_function(bn, domini, dataset)
-    print(bn.get_matrix())
-    print(new_score)
-    print("+++")
+    #   score_function(bn, dataset)
 
 
 if __name__ == '__main__':
