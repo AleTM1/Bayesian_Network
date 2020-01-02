@@ -4,11 +4,11 @@ import numpy as np
 import copy
 
 
-def BIC_hill_climbing(dominio, dataset):
+def BIC_hill_climbing(dominio, dataset, t):
     n = np.size(dominio, 0)
     bn_best = BN.BayesianNetwork(n)
     best_score = score_f.score_function(bn_best, dataset)
-    for temp in range(4):
+    for temp in range(t):
         print("Restart: ", temp + 1)
         temp_bn = BN.BayesianNetwork(n)
         temp_bn.generate_DAG()

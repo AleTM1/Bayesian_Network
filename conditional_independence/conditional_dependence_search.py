@@ -70,8 +70,6 @@ def search_conditional_dependence(direct_matrix):
     for dep in dependencies_arrays:
         if len(dep) == 0:
             intersection.append([])
-        elif len(dep) == 1:
-            intersection.append(dep[0])
         else:
             d = dep[0]
             for i in range(1, len(dep)):
@@ -110,9 +108,9 @@ def main():
     #   matrice ricavata
     print("\n MATRICE RICAVATA \n")
     matrix1 = np.zeros((8, 8))
-    matrix1[0, 1] = 0  # mod [0,1] = 1
+    matrix1[0, 1] = 0
     matrix1[1, 5] = 1
-    matrix1[3, 2] = 1  # mod [2,3] = 1
+    matrix1[3, 2] = 1
     matrix1[2, 4] = 1
     matrix1[3, 5] = 1
     matrix1[4, 7] = 1
