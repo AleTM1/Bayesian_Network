@@ -43,6 +43,11 @@ main_.py:
 
 	- funzione main: Questa funzione contiene in chiaro le stringhe che indicano i tre path necessari alla funzione csv_to_numpy, il numero 'n' che indica la dimensione del dataset da generare ed il numero 't' di restart da eseguire. Dopo aver caricato i dati e generato il dataset, queste informazioni vengono passate alla funzione hill_climbing che restituirà i valori ottenuti nella variabile 'result'. Infine il main() si occupa di stampare il BN ottenuto dal dataset generato ed il relativo score.
 	
+conditional_independence -> conditional_dependence_search.py:
+	
+	- funzioni get_children/parents: identiche a quelle sopra.
+	- funzione path_finder_undirect_graph: prende in ingresso un nodo sorgente 'src', un nodo destinazione 'dst' ed una matrice di incidenza (come matrice numpy) a cui appartengono i nodi precedenti. Restituisce la lista di tutti i possibili cammini da 'src' a 'dst' utilizzando il metodo 'all_simple_paths()' della libreria networkx.
+	- funzione search_conditional_dependence: prende in ingresso la matrice di incidenza del BN. Per ogni coppia di nodi non adiacenti stampa la condizione affinché i due nodi siano condizionalmente (o marginalmente) indipendenti. Il criterio impiegato è quello della D-separation. 
 	
 	
 	
