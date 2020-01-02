@@ -1,5 +1,4 @@
 import math
-from miscellaneous import Bayesian_Network as BN
 import numpy as np
 
 
@@ -66,25 +65,3 @@ def score_function(bayesian_network, dataset):
 
     score = sommatoria - (d / 2) * math.log2(np.size(dataset, 0))
     return score
-
-
-def main():
-    bn = BN.BayesianNetwork(8)
-    matrix = np.zeros((8, 8))
-    matrix[0, 7] = 1  # mod [0,1] = 1
-    matrix[1, 5] = 1
-    matrix[3, 2] = 1  # mod [2,3] = 1
-    matrix[2, 4] = 1
-    matrix[3, 5] = 1
-    matrix[4, 7] = 1
-    matrix[5, 6] = 1
-    matrix[5, 7] = 1
-    bn.set_matrix(matrix)
-
-    dataset = 0
-
-    #   score_function(bn, dataset)
-
-
-if __name__ == '__main__':
-    main()

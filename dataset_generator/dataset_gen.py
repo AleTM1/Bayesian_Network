@@ -1,5 +1,4 @@
 from dataset_generator import topological_order as top_ord
-from dataset_generator import csv_to_numpy as importer
 import numpy as np
 import copy
 import random
@@ -36,15 +35,3 @@ def dataset_gen(dominio, structure_matrix, probabilities, n):
                 else:
                     dataset[i, int(ordered_array[j])] = 0
     return dataset
-
-
-def main():
-    states_path = '/home/alessandro/Documenti/IA/Datasets/Asia/states.csv'
-    prob_table_path = '/home/alessandro/Documenti/IA/Datasets/Asia/prob.csv'
-    structure_path = '/home/alessandro/Documenti/IA/Datasets/Asia/structure.csv'
-    data = importer.csv_to_numpy(states_path, prob_table_path, structure_path)
-    dataset = dataset_gen(data[0], data[1], data[2], 100)
-    print(dataset)
-
-if __name__ == '__main__':
-    main()

@@ -72,12 +72,3 @@ def search_path_bfs(v, u, bn):
                 queue.append(i)
                 visited[i] = True
     return False
-
-
-def main():
-    bn = BayesianNetwork(10)
-    print(bn.get_matrix())
-
-
-if __name__ == '__main__':
-    main()

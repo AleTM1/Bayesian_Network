@@ -45,21 +45,3 @@ def topological_ord(structure_matrix):
             if not has_parents(structure_matrix, n, m):
                 act_set.append(m)
     return explored
-
-
-def main():
-    matrix = np.zeros((8, 8))
-    matrix[0, 1] = 1
-    matrix[1, 5] = 1
-    matrix[2, 3] = 1
-    matrix[2, 4] = 1
-    matrix[3, 5] = 1
-    matrix[4, 7] = 1
-    matrix[5, 6] = 1
-    matrix[5, 7] = 1
-
-    print(topological_ord(matrix))
-
-
-if __name__ == '__main__':
-    main()

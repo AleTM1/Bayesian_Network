@@ -42,16 +42,3 @@ def csv_to_numpy(states_path, prob_table_path, structure_path):
 
     return dominio, structure_matrix, probabilities
 
-
-def main():
-    states_path = '/home/alessandro/Documenti/IA/Datasets/Asia/states.csv'
-    prob_table_path = '/home/alessandro/Documenti/IA/Datasets/Asia/prob.csv'
-    structure_path = '/home/alessandro/Documenti/IA/Datasets/Asia/structure.csv'
-    data = csv_to_numpy(states_path, prob_table_path, structure_path)
-    print(data[0])
-    print(data[1])
-    print(data[2])
-
-
-if __name__ == '__main__':
-    main()
