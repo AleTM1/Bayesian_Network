@@ -1,4 +1,4 @@
-# Bayesian Network
+# Structure learning for Bayesian Networks
 
 miscellaneous -> Bayesian_Network:	
 
