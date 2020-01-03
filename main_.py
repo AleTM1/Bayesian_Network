@@ -3,8 +3,8 @@ from dataset_generator import dataset_gen as generator, csv_to_numpy
 
 
 def main():
-    n = 5000
-    t = 4
+    n = 10000
+    t = 8
     states_path = '/home/alessandro/Documenti/IA/Datasets/Asia/states.csv'
     prob_table_path = '/home/alessandro/Documenti/IA/Datasets/Asia/prob.csv'
     structure_path = '/home/alessandro/Documenti/IA/Datasets/Asia/structure.csv'
